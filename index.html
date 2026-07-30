@@ -1,0 +1,197 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="涧水每日情报：艺术、女性议题、AI、设计与今日热点的私人编辑日报"><title>涧水每日情报</title><style>
+
+:root {
+  --ink: #20211f;
+  --paper: #f4f1eb;
+  --line: rgba(32, 33, 31, 0.17);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+}
+button, a { font: inherit; }
+.hero {
+  position: relative;
+  min-height: 570px;
+  padding: 0 5vw 72px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 82% 30%, rgba(185, 202, 193, .66), transparent 29%),
+    radial-gradient(circle at 65% 78%, rgba(223, 198, 182, .54), transparent 26%),
+    var(--paper);
+}
+.hero::after {
+  content: "DAILY";
+  position: absolute;
+  right: -18px;
+  bottom: -78px;
+  color: rgba(32, 33, 31, .035);
+  font: 800 280px/1 Georgia, serif;
+  letter-spacing: -.08em;
+  pointer-events: none;
+}
+nav {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-decoration: none;
+}
+.brand span { font-weight: 400; }
+.calendarButton {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0 10px 20px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+.calendarButton b { font-size: 19px; font-weight: 400; }
+.intro { position: relative; z-index: 1; margin-top: 88px; max-width: 820px; }
+.eyebrow { margin: 0 0 24px; color: #5e625d; font-size: 13px; letter-spacing: .12em; }
+h1 {
+  margin: 0;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: clamp(58px, 8vw, 112px);
+  font-weight: 500;
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+.editionLine { display: flex; align-items: center; gap: 15px; margin-top: 45px; }
+.editionLine time { font: italic 18px Georgia, serif; }
+.editionLine span { width: 70px; height: 1px; background: var(--ink); }
+.editionLine p { margin: 0; color: #666a64; font-size: 13px; }
+.calendar {
+  position: absolute;
+  z-index: 5;
+  top: 76px;
+  right: 5vw;
+  width: 360px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(250, 248, 243, .97);
+  box-shadow: 0 24px 70px rgba(43, 40, 34, .14);
+  backdrop-filter: blur(16px);
+}
+.calendarTop { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+.calendarTop strong { font-family: Georgia, "Songti SC", serif; }
+.calendarTop span { color: #888b85; font-size: 11px; }
+.week, .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.week i { color: #969993; font-size: 10px; font-style: normal; text-align: center; }
+.days button {
+  position: relative;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  color: #b3b4b0;
+  background: transparent;
+}
+.days button:not(:disabled) { color: var(--ink); cursor: pointer; }
+.days button.active { color: white; background: var(--ink); }
+.days em {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #af7e62;
+  transform: translateX(-50%);
+}
+.stream {
+  columns: 3 330px;
+  column-gap: 20px;
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 54px 5vw 90px;
+}
+.card {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 28px;
+  border: 1px solid rgba(32,33,31,.08);
+  border-radius: 2px;
+  break-inside: avoid;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 16px 42px rgba(46, 43, 38, .09); }
+.meta { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .08em; }
+.meta > span { font-weight: 700; }
+.meta > b { padding: 3px 7px; border: 1px solid currentColor; border-radius: 20px; font-size: 9px; }
+.meta > i { margin-left: auto; color: rgba(32,33,31,.45); font: italic 14px Georgia, serif; }
+.card h2 {
+  margin: 48px 0 18px;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -.025em;
+}
+.summary { margin: 0; font-size: 14px; line-height: 1.85; }
+.why { margin-top: 25px; padding-top: 18px; border-top: 1px solid rgba(32,33,31,.14); }
+.why small { color: rgba(32,33,31,.58); font-size: 9px; font-weight: 700; letter-spacing: .16em; }
+.why p { margin: 7px 0 0; font-size: 12px; line-height: 1.7; }
+.card > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.card > a b { font-size: 17px; transition: transform .2s; }
+.card > a:hover b { transform: translate(3px, -3px); }
+footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 5vw;
+  padding: 35px 0 50px;
+  border-top: 1px solid var(--line);
+  color: #666a64;
+  font-size: 12px;
+}
+footer p { margin: 0; }
+@media (max-width: 720px) {
+  .hero { min-height: 480px; padding: 0 22px 50px; }
+  nav { height: 72px; }
+  .calendarButton span { display: none; }
+  .intro { margin-top: 68px; }
+  h1 { font-size: 58px; }
+  .editionLine { align-items: flex-start; flex-wrap: wrap; margin-top: 34px; }
+  .editionLine span { width: 42px; }
+  .calendar { top: 66px; right: 18px; left: 18px; width: auto; }
+  .stream { columns: 1; padding: 28px 18px 58px; }
+  .card { padding: 24px; margin-bottom: 14px; }
+  .card h2 { margin-top: 38px; font-size: 25px; }
+  footer { margin: 0 22px; flex-direction: column; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+#calendar{display:none}#calendar.show{display:block}</style></head><body><main><header class="hero"><nav><a class="brand" href="#">JIANSHUI <span>DAILY</span></a><button id="calendarToggle" class="calendarButton"><span>日历回看</span><b>⌄</b></button></nav><section id="calendar" class="calendar"><div class="calendarTop"><strong>2026 年 7 月</strong><span>有圆点的日期可回看</span></div><div class="week"><i>一</i><i>二</i><i>三</i><i>四</i><i>五</i><i>六</i><i>日</i></div><div class="days"><span></span><span></span><button disabled class="">1</button><button disabled class="">2</button><button disabled class="">3</button><button disabled class="">4</button><button disabled class="">5</button><button disabled class="">6</button><button disabled class="">7</button><button disabled class="">8</button><button disabled class="">9</button><button disabled class="">10</button><button disabled class="">11</button><button disabled class="">12</button><button disabled class="">13</button><button disabled class="">14</button><button disabled class="">15</button><button disabled class="">16</button><button disabled class="">17</button><button disabled class="">18</button><button disabled class="">19</button><button disabled class="">20</button><button disabled class="">21</button><button disabled class="">22</button><button disabled class="">23</button><button disabled class="">24</button><button disabled class="">25</button><button disabled class="">26</button><button disabled class="">27</button><button disabled class="">28</button><button data-date="2026-07-29" class="active">29<em></em></button><button disabled class="">30</button><button disabled class="">31</button></div></section><div class="intro"><p class="eyebrow">每日情报切片 · 北京时间 08:00 更新</p><h1>世界很吵。<br>挑值得你听的。</h1><div class="editionLine"><time id="date"></time><span></span><p id="count"></p></div></div></header><section id="stream" class="stream" aria-label="今日资讯"></section><footer><p>不是信息洪流，是一份私人编辑。</p><span>下一期 · 明早 08:00</span></footer></main><script>
+const editions={"2026-07-29":[{"tag":"艺术美学","title":"数字艺术，终于不再是艺术市场的“旁支”","summary":"Art Basel 对 2026 年的观察显示，数字艺术在高净值收藏者的品类支出中已升至第三，仅次于绘画与雕塑。艺术与技术的关系，正在从“新奇媒介”变成稳定的收藏语言。","why":"对设计师更值得看的不是 NFT，而是：屏幕原生作品开始拥有自己的展示、叙事与价值体系。","source":"Art Basel","url":"https://www.artbasel.com/stories/art-market-trends-watch-2026-experience-digital-middle-east-private-sales?lang=zh_CN","tone":"lilac"},{"tag":"穿搭流行","title":"早秋最妙的颜色，是一整盘“红椒色”","summary":"焦橘、酒红、砖红与暖蜜桃被组合成同色系穿搭。重点并非上下完全同色，而是靠材质和明度差制造层次。","why":"可借鉴的重点不是追逐单一流行色，而是用同色系的材质与明度差制造成熟层次。","source":"VOGUE Taiwan","url":"https://www.vogue.com.tw/article/pre-fall-2026-trends","tone":"peach"},{"tag":"新生活概念","title":"生活不再“大改版”：Reflection over rebranding","summary":"2026 年的慢生活叙事正在从精致摆拍转向一种更诚实的实践：恢复模拟爱好、允许不完美、庆祝小进展，不再把每个新年都变成自我改造工程。","why":"它提供了一种反绩效化的生活框架：让长期目标持续推进，同时不把每天都变成高强度改造工程。","source":"Trill","url":"https://www.trillmag.com/lifestyle/health-wellbeing/reflection-over-rebranding-how-gen-z-is-choosing-slow-living-in-2026/","tone":"sage"},{"tag":"女性力量","title":"刚果东部的女人，用音乐节对抗战争的噤声","summary":"在冲突持续的戈马，由女性主导的 Musika na Kipaji 音乐节聚集约 3,000 人，以音乐反对性别暴力、重建社区联结。她们没有浪漫化苦难，而是在暴力中夺回公共表达。","why":"女性力量不只是“成为强者”，也包括在秩序崩塌时继续制造文化、快乐与共同体。","source":"AP News","url":"https://apnews.com/article/3fc3527a2ec723d10a8f14edcfd976fb","tone":"blue"},{"tag":"女性困境","title":"苏丹女性取一桶水，要在无人机与性暴力之间选择","summary":"苏丹奥贝德的缺水迫使女性白天冒着无人机袭击取水，夜间又面临强奸风险。全苏丹已有超过 1,270 万女性和女孩需要性别暴力相关服务。","why":"战争并非“男女共同受苦”的中性事件；基础设施崩溃会把性别结构放大成致命风险。","source":"Reuters","url":"https://www.reuters.com/world/africa/women-sudans-al-obeid-face-drone-attacks-rape-when-fetching-water-un-says-2026-07-24/","tone":"rose"},{"tag":"女权新思想","title":"照护经济：GDP 看不见的劳动，才托住了世界","summary":"女性主义经济学持续把无偿照护、家务与情绪劳动拉回经济分析中心。它追问的不是女性如何更高效地加入旧系统，而是旧系统为何把维系生命的劳动定价为零。","why":"这比“女性也能像男人一样成功”更往前一步：它开始重写什么才算成功、生产与价值。","source":"Feminist Economics","url":"https://www.tandfonline.com/journals/rfec20","tone":"sand"},{"tag":"AI 资讯","title":"GPT‑5.6 把“照着现有设计系统做”变得更靠谱","summary":"OpenAI 最新旗舰系列强调复杂工作与模板遵循能力，官方展示中特别提到：可识别参考文件里的版式、字体、间距、颜色与重复规律，并延续到新内容中。","why":"对 UI 工作最直接的变化，是 AI 从“做一张像样的图”走向“遵守一套设计系统持续生产”。","source":"OpenAI","url":"https://openai.com/index/gpt-5-6/","tone":"cyan"},{"tag":"AI × 设计","title":"Figma 的 AI 工具清单，重点已从生图转向工作流","summary":"Figma 新整理的 2026 UX AI 工具方向包括设计上下文、Agent 框架、MCP、A/B 测试、可用性测试和应用构建。AI 的战场正从单点生成移向端到端协作。","why":"真正会拉开设计师差距的，不是提示词花活，而是你能否让 AI 读懂组件、规范、数据和验证环节。","source":"Figma","url":"https://www.figma.com/resource-library/ai-tools-for-ux-designers/","tone":"mint"},{"tag":"中文新书","title":"《不被召唤，不受差遣》：这个书名就很涧水","summary":"出版品牌“惊奇”将丝绒陨的《不被召唤，不受差遣》列为 2026 年重点新书。它指向一种拒绝默认角色、拒绝被功能化的人生态度。","why":"先放进候选书单。我会在后续日报里继续核对正式出版信息、目录和可靠书评，再判断值不值得买。","source":"不止读书","url":"https://podcasts.apple.com/cn/podcast/240-%E5%BC%80%E5%B9%B4%E4%B9%A6%E5%8D%95-32%E5%AE%B6%E5%87%BA%E7%89%88%E7%A4%BE-2026%E5%B9%B4%E6%9C%80%E6%8E%A8%E8%8D%90%E7%9A%84%E4%B8%80%E6%9C%AC%E4%B9%A6/id1558684259?i=1000750573676","tone":"cream"},{"tag":"塔罗牌","title":"七月公共牌：权杖七——守住自己的位置","summary":"一份七月塔罗趋势将权杖七作为集体主题：边界、勇气与面对外部压力时不轻易让位。可以把它当作自我提问，而非命运预言。","why":"今日问题：我现在守住的是价值，还是仅仅因为不甘心而防守？","source":"YourTango","url":"https://www.yourtango.com/2026398609/monthly-tarot-horoscope-july-2026-zodiac-signs","tone":"violet"},{"tag":"小红书热点","rank":"趋势观察","title":"世界杯把小红书推向“男性用户争夺战”","summary":"小红书拿下 2026 世界杯相关持权转播后，平台产生大量世界杯热点。它正在从生活方式社区主动拓展到更宽泛的公共议题与男性用户。","why":"对内容创作者而言，这意味着小红书的推荐语境正在变宽；女性议题也可能进入更混杂、更对抗的评论场。","source":"证券时报","url":"https://www.stcn.com/article/detail/3994690.html","tone":"coral"},{"tag":"抖音热榜","rank":"TOP 1","title":"五颜六色是中国的夏日底色","summary":"截至抓取时，该话题以约 1,182.3 万热度位列抖音公开热榜首位；榜单随后仍会实时变化。","why":"从视觉传播看，这是很典型的“宏大主题＋高饱和风景素材”结构，容易形成全民可参与的二创模板。","source":"抖音热榜","url":"https://www.douyin.com/hot","tone":"yellow"},{"tag":"Lake 的意外投递","title":"全球癌症报告真正提醒的，不只是治病","summary":"WHO 2026 全球癌症状况报告把重点放在疾病负担、预防、公平可及与医疗系统差距。很多癌症风险并非纯粹的个人生活选择，而与筛查资源和公共系统有关。","why":"值得保留的视角是：不要把系统性健康风险全部归咎于个人选择，筛查资源与公共系统同样关键。","source":"WHO","url":"https://www.who.int/publications/i/item/9789240123977","tone":"stone"}]};
+const tones=["#E7E0EF","#F2DED3","#DCE6D7","#D9E4EC","#EAD8DA","#E8E0D2","#D8E8E8","#DDE9E1","#EEE8D8","#E2DCEC","#EAD9D2","#ECE5C9","#DEDFDC"];
+let selected=Object.keys(editions).sort().reverse()[0];
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+function render(){const cards=editions[selected]||[];document.querySelector("#date").textContent=selected.replaceAll("-",".");document.querySelector("#count").textContent=cards.length+" 条精选 · 约 12 分钟读完";document.querySelector("#stream").innerHTML=cards.map((c,i)=>`<article class="card" style="background:${tones[i%tones.length]}"><div class="meta"><span>${esc(c.tag)}</span>${c.rank?`<b>${esc(c.rank)}</b>`:""}<i>${String(i+1).padStart(2,"0")}</i></div><h2>${esc(c.title)}</h2><p class="summary">${esc(c.summary)}</p><div class="why"><small>LAKE 说</small><p>${esc(c.why)}</p></div><a href="${esc(c.url)}" target="_blank" rel="noreferrer"><span>${esc(c.source)}</span><b>↗</b></a></article>`).join("")}
+document.querySelector("#calendarToggle").onclick=()=>document.querySelector("#calendar").classList.toggle("show");
+document.querySelectorAll("[data-date]").forEach(b=>b.onclick=()=>{selected=b.dataset.date;document.querySelector("#calendar").classList.remove("show");render()});render();</script></body></html>
