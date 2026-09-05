@@ -50,7 +50,7 @@ editions["2026-09-05"] = [
     ],
     "languageNote": "已阅读9月4日路透正文；所有比分、球数与纪录口径均可追溯。",
     "source": "Reuters · 9月4日",
-    "summary": "印度副队长Smriti Mandhana在女足板球亚洲杯对香港队的比赛中打出124分，国际赛总得分升至10880分。她同时以18个国际赛百分打破女子纪录。",
+    "summary": "印度副队长Smriti Mandhana在女子板球亚洲杯对香港队的比赛中打出124分，国际赛总得分升至10880分。她同时以18个国际赛百分打破女子纪录。",
     "tag": "女性力量",
     "title": "64球轰下124分：Mandhana成为女板球国际赛得分第一人",
     "url": "https://www.reuters.com/sports/cricket/indias-mandhana-becomes-womens-crickets-leading-run-scorer-2026-09-04/",
@@ -82,7 +82,7 @@ editions["2026-09-05"] = [
     "tag": "女性困境",
     "title": "婚礼还没开始，爆炸先落在150名女性聚集的院子里",
     "url": "https://apnews.com/article/iran-war-wedding-us-strikes-b0a9d9a28ef221e52f4643a062dbfca1",
-    "why": "“并非有意 攻击平民”不能结束追问，武器落在哪里才决定平民承受什么。"
+    "why": "“并非有意攻击平民”不能结束追问，武器落在哪里才决定平民承受什么。"
   },
   {
     "detail": [
