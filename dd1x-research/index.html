@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="闲置衣物处置、旧衣回收服务选择和用户决策的每周实证研究简报。">
+  <meta name="theme-color" content="#f4f1eb">
+  <title>旧衣回收用户研究周报</title>
+  <style>
+    :root {
+      --ink: #20211f;
+      --paper: #f4f1eb;
+      --quiet: #555c54;
+      --line: rgba(32, 33, 31, .19);
+      --green: #e2ebe3;
+      --peach: #efe1d6;
+      --serif: "Songti SC", "Noto Serif CJK SC", STSong, SimSun, serif;
+      --sans: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 15px/1.8 var(--sans); }
+    a { color: inherit; text-underline-offset: .25em; }
+    button { color: inherit; font: inherit; }
+    :focus-visible { outline: 2px solid #47735a; outline-offset: 4px; }
+    .wrap { width: min(90%, 1260px); margin-inline: auto; }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      z-index: 1;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse at 81% 26%, rgba(181, 201, 188, .72), transparent 44%),
+        radial-gradient(ellipse at 66% 94%, rgba(222, 194, 176, .62), transparent 40%),
+        var(--paper);
+    }
+    .watermark {
+      position: absolute;
+      z-index: -1;
+      inset: auto 0 0 auto;
+      color: rgba(32, 33, 31, .041);
+      font: 800 clamp(92px, 19vw, 270px)/1 Georgia, serif;
+      letter-spacing: -.085em;
+      transform: translateY(.26em);
+      clip-path: inset(0 0 .26em);
+      pointer-events: none;
+    }
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 78px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { font-size: 12px; font-weight: 800; letter-spacing: .19em; text-decoration: none; }
+    .brand span { font-weight: 400; }
+    .calendar-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      padding: 0 0 0 20px;
+      border: 0;
+      border-left: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .chevron { width: 7px; height: 7px; border: solid currentColor; border-width: 0 1px 1px 0; transform: rotate(45deg); }
+    .calendar-toggle[aria-expanded="true"] .chevron { transform: rotate(225deg); }
+    .intro { padding: 62px 0 66px; }
+    .intro h1 {
+      margin: 0;
+      font: 600 clamp(49px, 7.45vw, 106px)/1.03 var(--serif);
+      letter-spacing: -.066em;
+    }
+    .intro h1 span { display: block; }
+    .edition-line { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+    .edition-line time { font: italic 20px/1.3 Georgia, serif; font-variant-numeric: tabular-nums; }
+    .edition-line .rule { width: 50px; height: 1px; background: var(--ink); }
+    .edition-line a { color: var(--quiet); font-size: 12px; text-decoration: none; }
+    .edition-line a:hover { text-decoration: underline; }
+
+    .calendar {
+      position: absolute;
+      z-index: 3;
+      top: calc(100% - 6px);
+      right: 0;
+      width: min(350px, 100%);
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #faf8f3;
+      box-shadow: 0 20px 55px rgba(43, 40, 34, .15);
+    }
+    .calendar-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+    .calendar-header h2 { margin: 0; font: 600 19px/1.3 Georgia, var(--serif); }
+    .month-controls { display: flex; gap: 6px; }
+    .month-controls button {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      font: 24px/1 Georgia, serif;
+    }
+    .month-controls button:disabled { opacity: .35; cursor: default; }
+    .weekdays, .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+    .weekdays { margin-bottom: 5px; text-align: center; color: var(--quiet); font-size: 11px; }
+    .days button {
+      position: relative;
+      min-width: 0;
+      height: 37px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      font: 15px/1 Georgia, serif;
+    }
+    .days button:disabled { color: #898d85; }
+    .days button:not(:disabled) { cursor: pointer; }
+    .days button:not(:disabled):not([aria-current]):hover { background: var(--green); }
+    .days button:not(:disabled)::after {
+      content: "";
+      position: absolute;
+      left: calc(50% - 2px);
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #aa7150;
+    }
+    .days button[aria-current="date"] { color: #fff; background: var(--ink); }
+    .calendar-note { margin: 12px 0 0; padding-top: 9px; border-top: 1px solid var(--line); color: var(--quiet); font-size: 11px; }
+
+    .edition { padding: 36px 0 64px; }
+    .status { margin: 0 0 20px; padding: 12px 16px; border: 1px solid var(--line); color: var(--quiet); font-size: 13px; }
+    .overview {
+      display: grid;
+      grid-template-columns: minmax(0, .87fr) minmax(0, 1.13fr);
+      gap: 36px;
+      align-items: baseline;
+      padding-bottom: 32px;
+    }
+    .eyebrow { margin: 0 0 9px; color: var(--quiet); font-size: 11px; font-weight: 650; letter-spacing: .14em; }
+    .overview h2 { margin: 0; font: 650 clamp(27px, 3.25vw, 43px)/1.25 var(--serif); letter-spacing: -.035em; }
+    .prose { overflow-wrap: anywhere; }
+    .prose > :first-child { margin-top: 0; }
+    .prose > :last-child { margin-bottom: 0; }
+    .prose p, .prose ul, .prose ol { margin: 0 0 16px; }
+    .prose ul, .prose ol { padding-inline-start: 1.28em; }
+    .prose li + li { margin-top: 12px; }
+    .overview .prose { color: #414640; font-size: 14px; line-height: 1.9; }
+
+    .cards { display: grid; grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr); gap: 18px; align-items: start; }
+    .card { min-width: 0; padding: clamp(22px, 3.2vw, 43px); border: 1px solid var(--line); border-radius: 2px; background: #faf7f0; }
+    .card.research { background: var(--green); }
+    .card.product { background: var(--peach); }
+    .card.wide { grid-column: 1 / -1; }
+    .card > header { margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .card h2 { margin: 10px 0 0; font: 650 clamp(24px, 2.65vw, 34px)/1.34 var(--serif); letter-spacing: -.035em; text-wrap: balance; }
+    .card .prose { font-size: 14px; line-height: 1.88; }
+    .card .prose h3 { margin: 24px 0 10px; font: 650 21px/1.42 var(--serif); }
+    .card .prose h3:first-child { margin-top: 0; }
+    .card strong { font-weight: 720; }
+    .card code { padding: 0 .2em; background: rgba(255, 255, 255, .36); }
+    .card blockquote { margin: 16px 0; padding-inline-start: 14px; border-inline-start: 2px solid var(--line); }
+    .card a { color: #254b37; font-weight: 650; }
+    .card a:hover { text-decoration-thickness: 2px; }
+    .sources { display: flex; flex-wrap: wrap; gap: 5px 15px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; }
+    .sources a { display: inline-flex; align-items: baseline; gap: 5px; }
+    .sources a::after { content: "↗"; }
+    .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 24px; }
+    .pager a { font-size: 13px; }
+    .pager a[rel="next"] { margin-left: auto; }
+    footer { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 19px 0 32px; border-top: 1px solid var(--line); color: var(--quiet); font-size: 12px; }
+    footer a { white-space: nowrap; }
+
+    @media (max-width: 720px) {
+      .wrap { width: calc(100% - 40px); }
+      .topbar { min-height: 63px; }
+      .calendar-toggle { padding-left: 13px; }
+      .watermark { font-size: 25vw; }
+      .intro { padding: 48px 0 44px; }
+      .intro h1 { font-size: clamp(44px, 11.9vw, 70px); }
+      .edition-line { margin-top: 24px; gap: 11px; }
+      .edition-line .rule { width: 30px; }
+      .edition { padding: 26px 0 42px; }
+      .overview, .cards { grid-template-columns: minmax(0, 1fr); }
+      .overview { gap: 13px; padding-bottom: 24px; }
+      .card > header { margin-bottom: 16px; padding-bottom: 15px; }
+      .card .prose { font-size: 14px; }
+      .calendar { padding: 15px; }
+    }
+
+    @media (max-width: 360px) {
+      .wrap { width: calc(100% - 32px); }
+      .intro h1 { font-size: 41px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <span class="watermark" aria-hidden="true">WEEKLY</span>
+    <div class="wrap">
+      <nav class="topbar" aria-label="网站导航">
+        <a class="brand" href="/" aria-label="返回涧水每日情报">JIANSHUI <span>DAILY</span></a>
+        <button class="calendar-toggle" id="calendar-toggle" type="button" aria-expanded="false" aria-controls="calendar">
+          日历回看<span class="chevron" aria-hidden="true"></span>
+        </button>
+        <section class="calendar" id="calendar" aria-label="按日期回看" hidden>
+          <div class="calendar-header">
+            <h2 id="calendar-month" aria-live="polite"></h2>
+            <div class="month-controls">
+              <button type="button" id="previous-month" aria-label="上个月">‹</button>
+              <button type="button" id="next-month" aria-label="下个月">›</button>
+            </div>
+          </div>
+          <div class="weekdays" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+          <div class="days" id="calendar-days" aria-labelledby="calendar-month"></div>
+          <p class="calendar-note">有圆点的日期可查看周报。</p>
+        </section>
+      </nav>
+      <div class="intro">
+        <h1><span>旧衣回收</span><span>用户研究周报</span></h1>
+        <div class="edition-line">
+          <time id="edition-date"></time>
+          <span class="rule" aria-hidden="true"></span>
+          <a href="#brief">阅读本期 ↓</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="edition wrap" id="brief" tabindex="-1">
+    <p class="status" id="status" role="status" hidden></p>
+    <section class="overview" aria-labelledby="edition-title">
+      <div>
+        <p class="eyebrow">本期导读</p>
+        <h2 id="edition-title"></h2>
+      </div>
+      <div class="prose" id="edition-intro"></div>
+    </section>
+    <div class="cards" id="edition-cards"></div>
+    <nav class="pager" id="edition-pager" aria-label="切换周报" hidden></nav>
+    <noscript><p>启用 JavaScript 后可按日期浏览，可以直接打开下方的 GitHub 归档阅读。</p></noscript>
+  </main>
+
+  <footer class="wrap">
+    <span>周一更新 · 北京时间</span>
+    <a href="https://github.com/zhaosier6821/zhaosier6821.github.io/blob/dd1x-research/dd1x-research/README.md">GitHub 归档 ↗</a>
+  </footer>
+
+  <script type="application/json" id="first-brief">{"date":"2026-11-16","title":"衣物去向与回收信任","markdown":"# 旧衣回收用户研究周报｜2026-11-16\n\n**检索范围为 11 月 9 日至 15 日首次公开的中英文资料。** 本期核实到一项荷兰消费者调查，提供了衣物去向与信任的线索。在检索到的中文期刊和机构发布中，未发现直接测量中国用户如何选择上门回收服务的当周新研究。三类动机的相对重要性仍缺少可用的新证据。\n\n## 研究发现｜荷兰消费者如何看待衣物回收\n\n**来源与方法。** 纺织再生企业 Reju 于 **2026 年 11 月 10 日**公开调查结果。荷兰市场调研机构 Multiscope 于同年 4 月调查了 **1,006 名荷兰消费者**，其中 55 岁及以上占 53%。目前可核实的材料是企业发布稿及其方法摘要。 [Reju 原始发布](https://www.reju.com/news/press-releases/more-80-dutch-consumers-consider-clothing-recycling-important-fewer-half) · [含样本说明的发布稿](https://www.prnewswire.com/news-releases/more-than-80-of-dutch-consumers-consider-clothing-recycling-important-but-fewer-than-half-believe-clothing-donated-is-recycled-says-research-conducted-by-reju-302933740.html)\n\n- **态度与意向。** 82.7% 的受访者认为衣物回收重要，少于一半相信被收集的衣物能获得第二次使用机会。近一半表示，如果更信任回收体系，自己会回收更多衣物。调查测量的是受访者表达的态度和条件性意向，实际交付的变化仍待验证。\n- **渠道选择。** 超过 75% 表示可能或非常可能通过收集项目捐赠衣物，另有 15.1% 自报通过二手平台卖衣服。前者是意向，后者是自报行为，两项数据无法直接比较渠道使用率。\n\n**证据局限。** 公开稿未披露完整问卷、招募方式或样本加权，也没有披露交付记录。荷兰捐赠场景可以为「衣物去向是否影响信任」提供线索。中国上门回收还涉及打包、等待、称重和结算，这些因素的影响需要在本地验证。\n\n## 铛铛一下｜待验证\n\n**衣物去向提前展示，能否提高首次实际交付率？** 面向首次进入上门回收页、还在比较处置渠道的用户，在预约前测试一条可核实的说明，交代衣物交付后如何分拣、有哪些可能去向，以及用户能查到哪一步。随机向一半用户展示该说明，两组保持价格与服务条件一致。主指标用 **7 天内首次实际交付人数 ÷ 进入实验的用户数**。如果首单提交率上升、实际交付率持平，证据只支持用户更愿意提交预约。\n\n**三类动机可以用同一批衣物来追问。** 访谈时请用户回忆最近一次真实处置，先问「为什么是这时候整理」，再问「当时比较了哪些渠道，最终为什么选这个」。一个人可能因为换季腾空间开始整理，因为省事选择上门，再因为结算规则清楚决定提交。按这三个决策时点记录，可以检验各动机在何时起作用，也能保留同一用户的多种动机。\n"}</script>
+  <script type="module">
+    const rawArchive = 'https://raw.githubusercontent.com/zhaosier6821/zhaosier6821.github.io/dd1x-research/dd1x-research/';
+    const firstBrief = JSON.parse(document.querySelector('#first-brief').textContent);
+    const catalog = new Map([[firstBrief.date, firstBrief.title]]);
+    const reports = new Map([[firstBrief.date, firstBrief.markdown]]);
+    const fullDate = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'long', timeZone: 'UTC' });
+    const isoDate = /^\d{4}-\d{2}-\d{2}$/;
+
+    const dateLabel = document.querySelector('#edition-date');
+    const editionTitle = document.querySelector('#edition-title');
+    const editionIntro = document.querySelector('#edition-intro');
+    const editionCards = document.querySelector('#edition-cards');
+    const brief = document.querySelector('#brief');
+    const pager = document.querySelector('#edition-pager');
+    const status = document.querySelector('#status');
+    const toggle = document.querySelector('#calendar-toggle');
+    const calendar = document.querySelector('#calendar');
+    const calendarMonth = document.querySelector('#calendar-month');
+    const calendarDays = document.querySelector('#calendar-days');
+    const previousMonth = document.querySelector('#previous-month');
+    const nextMonth = document.querySelector('#next-month');
+
+    let catalogReady = false;
+    let visibleDate = firstBrief.date;
+    let monthCursor = firstBrief.date.slice(0, 7);
+    let selection = 0;
+
+    function element(tag, className, description) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (description) node.textContent = description;
+      return node;
+    }
+
+    function appendInline(parent, source) {
+      const tokens = /\[([^\]\n]+)\]\((https?:\/\/(?:[^\s()]|\([^()]*\))+)\)|\*\*([^*\n]+)\*\*|`([^`\n]+)`/g;
+      let position = 0;
+      for (const match of source.matchAll(tokens)) {
+        const [token, label, url, strong, code] = match;
+        parent.append(source.slice(position, match.index));
+        if (url) {
+          const link = element('a', null, label);
+          link.href = url;
+          parent.append(link);
+        } else {
+          parent.append(element(strong ? 'strong' : 'code', null, strong ?? code));
+        }
+        position = match.index + token.length;
+      }
+      parent.append(source.slice(position));
+    }
+
+    function splitReport(markdown) {
+      const overview = { heading: '', lines: [] };
+      const sections = [overview];
+      for (const line of markdown.replace(/\r\n?/g, '\n').split('\n')) {
+        if (line.startsWith('# ')) continue;
+        const heading = /^##\s+(.+)$/.exec(line);
+        if (heading) sections.push({ heading: heading[1].trim(), lines: [] });
+        else sections.at(-1).lines.push(line);
+      }
+      return { overview, sections: sections.slice(1) };
+    }
+
+    function renderText(lines, parent) {
+      let paragraph = [];
+      let list = null;
+      function flushParagraph() {
+        if (!paragraph.length) return;
+        const text = element('p');
+        appendInline(text, paragraph.join(' '));
+        parent.append(text);
+        paragraph = [];
+      }
+
+      for (const line of lines) {
+        const text = line.trim();
+        const heading = /^#{3,6}\s+(.+)$/.exec(text);
+        const item = /^([-*+]\s+|\d+[.)]\s+)(.+)$/.exec(text);
+        if (item) {
+          flushParagraph();
+          const tag = /^\d/.test(item[1]) ? 'ol' : 'ul';
+          if (list?.localName !== tag) {
+            list = element(tag);
+            parent.append(list);
+          }
+          const entry = element('li');
+          appendInline(entry, item[2]);
+          list.append(entry);
+        } else if (list && /^\s{2,}\S/.test(line)) {
+          appendInline(list.lastElementChild, ' ' + text);
+        } else {
+          list = null;
+          if (!text || /^([-*_])\1{2,}$/.test(text)) {
+            flushParagraph();
+          } else if (heading || text.startsWith('> ')) {
+            flushParagraph();
+            const block = element(heading ? 'h3' : 'blockquote');
+            appendInline(block, heading ? heading[1] : text.slice(2));
+            parent.append(block);
+          } else {
+            paragraph.push(text);
+          }
+        }
+      }
+      flushParagraph();
+    }
+
+    function renderSection(section) {
+      const name = /^(研究发现|铛铛一下\s*[｜|]\s*待验证)(?:\s*[｜|：:]\s*(.*))?$/u.exec(section.heading);
+      const type = name?.[1].startsWith('研究发现') ? 'research' : name ? 'product' : '';
+      const card = element('article', `card ${type}`.trim());
+      const heading = element('header');
+      if (name?.[2]) heading.append(element('p', 'eyebrow', name[1]));
+      heading.append(element('h2', null, name?.[2] || section.heading));
+      card.append(heading);
+
+      const prose = element('div', 'prose');
+      renderText(section.lines, prose);
+      if (type === 'research') {
+        const firstParagraph = prose.querySelector('p');
+        const links = firstParagraph ? [...firstParagraph.querySelectorAll('a')] : [];
+        if (links.length) {
+          const sourceList = element('div', 'sources');
+          sourceList.setAttribute('aria-label', '原始来源');
+          const sourceTail = document.createRange();
+          sourceTail.setStartBefore(links[0]);
+          sourceTail.setEndAfter(links.at(-1));
+          const between = sourceTail.cloneContents();
+          between.querySelectorAll('a').forEach(link => link.remove());
+          const before = sourceTail.cloneRange();
+          before.setStart(firstParagraph, 0);
+          before.setEndBefore(links[0]);
+          const after = sourceTail.cloneRange();
+          after.setStartAfter(links.at(-1));
+          after.setEnd(firstParagraph, firstParagraph.childNodes.length);
+          const prefix = before.toString().trim();
+          if ((!prefix || /[。.!？?：:]$/.test(prefix)) && /^\s*$/.test(after.toString()) && /^[\s·、，。/｜|]*$/.test(between.textContent)) {
+            sourceTail.deleteContents();
+            sourceList.append(...links);
+            prose.append(sourceList);
+          }
+        }
+      }
+      card.append(prose);
+      return card;
+    }
+
+    function dates() {
+      return [...catalog.keys()].sort();
+    }
+
+    function editionLink(date) {
+      const url = new URL(location.href);
+      url.hash = '';
+      url.searchParams.set('date', date);
+      return url;
+    }
+
+    function renderPager() {
+      const editions = dates();
+      const index = editions.indexOf(visibleDate);
+      pager.replaceChildren();
+      for (const [date, text, direction] of [[editions[index - 1], '← 上一期', 'prev'], [editions[index + 1], '下一期 →', 'next']]) {
+        if (!date) continue;
+        const link = element('a', null, `${text} · ${date}`);
+        link.href = editionLink(date);
+        link.rel = direction;
+        link.addEventListener('click', event => {
+          if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+          event.preventDefault();
+          showEdition(date, true);
+          brief.focus({ preventScroll: true });
+          brief.scrollIntoView();
+        });
+        pager.append(link);
+      }
+      pager.hidden = !pager.childElementCount;
+    }
+
+    function renderEdition(date, markdown) {
+      const { overview, sections } = splitReport(markdown);
+      if (!overview.lines.some(line => line.trim()) && !sections.length) {
+        throw new Error('简报正文为空');
+      }
+      visibleDate = date;
+      dateLabel.dateTime = date;
+      dateLabel.textContent = date.replaceAll('-', '.');
+      document.title = `旧衣回收用户研究周报｜${date}`;
+      editionTitle.textContent = catalog.get(date) || '本期研究简报';
+      editionIntro.replaceChildren();
+      renderText(overview.lines, editionIntro);
+      const cards = sections.map(renderSection);
+      if (cards.length === 1) cards[0].classList.add('wide');
+      editionCards.replaceChildren(...cards);
+      renderPager();
+      if (!calendar.hidden) renderCalendar();
+    }
+
+    function monthByOffset(month, offset) {
+      const [year, number] = month.split('-').map(Number);
+      return new Date(Date.UTC(year, number - 1 + offset, 1)).toISOString().slice(0, 7);
+    }
+
+    function renderCalendar() {
+      const [year, month] = monthCursor.split('-').map(Number);
+      const start = new Date(Date.UTC(year, month - 1, 1));
+      const count = new Date(Date.UTC(year, month, 0)).getUTCDate();
+      const editions = dates();
+      calendarMonth.textContent = `${year} 年 ${month} 月`;
+      previousMonth.disabled = monthCursor <= editions[0].slice(0, 7);
+      nextMonth.disabled = monthCursor >= editions.at(-1).slice(0, 7);
+      calendarDays.replaceChildren();
+      for (let blank = 0; blank < (start.getUTCDay() + 6) % 7; blank++) {
+        calendarDays.append(element('span'));
+      }
+      for (let day = 1; day <= count; day++) {
+        const date = `${monthCursor}-${String(day).padStart(2, '0')}`;
+        const button = element('button', null, String(day));
+        button.type = 'button';
+        button.disabled = !catalog.has(date);
+        button.setAttribute('aria-label', catalog.has(date) ? `${fullDate.format(new Date(date))}周报` : fullDate.format(new Date(date)));
+        if (date === visibleDate) button.setAttribute('aria-current', 'date');
+        button.addEventListener('click', () => {
+          closeCalendar(true);
+          showEdition(date, true);
+        });
+        calendarDays.append(button);
+      }
+    }
+
+    function closeCalendar(returnFocus = false) {
+      calendar.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+      if (returnFocus) toggle.focus();
+    }
+
+    toggle.addEventListener('click', () => {
+      if (!calendar.hidden) {
+        closeCalendar();
+        return;
+      }
+      monthCursor = visibleDate.slice(0, 7);
+      renderCalendar();
+      calendar.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+    });
+
+    for (const [button, offset] of [[previousMonth, -1], [nextMonth, 1]]) {
+      button.addEventListener('click', () => {
+        monthCursor = monthByOffset(monthCursor, offset);
+        renderCalendar();
+        if (button.disabled) (calendarDays.querySelector('button:not(:disabled)') || toggle).focus();
+      });
+    }
+    document.addEventListener('click', event => {
+      if (!calendar.hidden && !calendar.contains(event.target) && !toggle.contains(event.target)) closeCalendar();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !calendar.hidden) closeCalendar(true);
+    });
+
+    function setStatus(message = '') {
+      status.textContent = message;
+      status.hidden = !message;
+    }
+
+    async function readArchive(file) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch(rawArchive + file, { cache: 'no-cache', signal: controller.signal });
+        if (!response.ok) throw new Error(`读取归档失败 (${response.status})`);
+        return await response.text();
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    async function showEdition(date, remember = false) {
+      const request = ++selection;
+      if (remember && new URL(location.href).searchParams.get('date') !== date) {
+        history.pushState(null, '', editionLink(date));
+      }
+      if (!catalog.has(date)) {
+        setStatus(catalogReady ? `${date} 暂无归档周报，当前显示 ${visibleDate}。` : '暂时无法读取往期，当前显示已保存的首期。');
+        return;
+      }
+      if (!reports.has(date)) setStatus(`正在读取 ${date} 周报…`);
+      try {
+        const markdown = reports.get(date) ?? await readArchive(`${date}.md`);
+        if (request !== selection) return;
+        if (!markdown.trim()) throw new Error('简报正文为空');
+        reports.set(date, markdown);
+        renderEdition(date, markdown);
+        setStatus();
+      } catch {
+        if (request === selection) setStatus(`暂时读不到 ${date} 的周报。可刷新重试，或打开页尾的 GitHub 归档。`);
+      }
+    }
+
+    function showLocation() {
+      const requested = new URL(location.href).searchParams.get('date');
+      return showEdition(isoDate.test(requested ?? '') ? requested : dates().at(-1));
+    }
+
+    async function openArchive() {
+      try {
+        const index = await readArchive('README.md');
+        const rows = /^\s*[-*]\s+\[(\d{4}-\d{2}-\d{2})\]\((?:\.\/)?\1\.md\)[ \t]*(?:·[ \t]*(.*))?$/gm;
+        for (const [, date, title] of index.matchAll(rows)) {
+          catalog.set(date, title?.trim() || catalog.get(date) || '本期研究简报');
+        }
+        catalogReady = true;
+        await showLocation();
+      } catch {
+        setStatus('暂时无法获取最新归档，当前显示已保存的首期。');
+      }
+    }
+
+    renderEdition(firstBrief.date, firstBrief.markdown);
+    window.addEventListener('popstate', showLocation);
+    openArchive();
+  </script>
+</body>
+</html>
