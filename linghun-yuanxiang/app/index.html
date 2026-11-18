@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e1c">
+  <meta name="robots" content="noindex, nofollow">
+  <title>灵魂原像</title>
+  <meta name="description" content="当你的灵魂化作世间一物，那会是什么？">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./media.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <div id="forest-scene" class="scene-layer forest-scene" aria-hidden="true" hidden>
+      <img class="scene-backdrop" src="./assets/scenes/forest.webp" alt="">
+      <div class="rainfall"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <div class="rain-splashes"><div></div><div></div><div></div><div></div></div>
+      <div class="scene-orbs"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div id="lake-scene" class="scene-layer lake-scene" aria-hidden="true" hidden>
+      <img class="scene-backdrop" src="./assets/scenes/lake.webp" alt="">
+      <div class="lake-water">
+        <img class="scene-backdrop" src="./assets/scenes/lake.webp" alt="">
+        <div class="lake-reflection"><i></i><i></i><i></i></div>
+      </div>
+      <div class="scene-diamonds"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="关闭声音" aria-pressed="true">
+      <span class="music-disc" aria-hidden="true">♫</span>
+    </button>
+
+    <div id="audio-notice" class="audio-notice" role="status" hidden></div>
+    <div id="content-scroll" class="content-scroll">
+    <main class="scene-content">
+    <section id="home" class="home-screen" aria-labelledby="home-title">
+      <h1 id="home-title" class="display" tabindex="-1">灵魂原像</h1>
+      <p class="lead">当你的灵魂化作世间一物，那会是什么？</p>
+      <div class="dream-stage" aria-hidden="true">
+        <div class="sky-halo"></div>
+        <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div><div class="cloud cloud-three"></div>
+        <div id="cover-titles" class="cover-titles"></div>
+      </div>
+      <div class="home-meta"><span>8 道题</span><span class="meta-dot">·</span><span>约 1 分钟</span><span class="meta-dot">·</span><span>16 种结果</span></div>
+      <button id="start" class="primary" type="button" hidden><span id="start-label">去探寻</span><span class="button-arrow" aria-hidden="true">→</span></button>
+      <div id="start-hint" class="start-hint">正在准备测试。若页面一直停在这里，请刷新网页。</div>
+      <div class="fineprint">答案仅在当前设备参与匹配</div>
+    </section>
+
+    <section id="quiz" class="quiz-screen" aria-labelledby="prompt" hidden>
+      <div class="progress-head">
+        <span>答题进度</span>
+        <span class="progress-count"><span id="step">01</span> <span id="step-total" class="progress-total">/ 8</span></span>
+      </div>
+      <div id="progress" class="progress-track" aria-hidden="true"></div>
+      <div id="quiz-frame" class="quiz-frame">
+        <div class="ripple-waves" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div id="quiz-content" class="quiz-content">
+          <div id="question-panel" class="question-panel">
+            <div class="question-kicker"><span class="mini-diamond" aria-hidden="true">◇</span><span id="question-title"></span></div>
+            <h2 id="prompt" class="question" tabindex="-1"></h2>
+          </div>
+          <div id="options" class="options" role="group" aria-label="选择一件与你呼应的物件"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="back" class="secondary" type="button" disabled><span class="small-arrow" aria-hidden="true">←</span><span id="back-label">上一题</span></button>
+      </div>
+    </section>
+
+    <section id="loading" class="loading-screen" role="status" hidden>
+      <div class="loader" aria-hidden="true"><span class="loader-ring"></span><span class="loader-star">✦</span></div>
+      <p id="loading-heading" class="loading-heading" tabindex="-1">正在匹配你的灵魂原像…</p>
+    </section>
+
+    <section id="result" class="result-screen" tabindex="-1" hidden>
+      <div class="eyebrow"><span class="rule"></span><span id="result-context">你的灵魂原像</span><span class="rule"></span></div>
+      <div id="result-stage" class="result-stage" aria-hidden="true">
+        <div id="result-flight" class="result-flight">
+          <div class="card-hover"><div class="result-rotor">
+            <div class="card-face card-face-back">
+              <img class="card-back-art" src="./assets/cards/card_back.jpg" alt="" width="390" height="600">
+              <span class="card-crest">✦</span>
+            </div>
+            <div class="card-face card-face-front">
+              <img id="result-image" class="result-card" alt="" width="754" height="1160">
+              <div id="art-ink-window" class="art-ink-window"></div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <p id="result-error" class="result-error" role="status" hidden>插画暂未载入，仍可查看卡牌解读。</p>
+      <div class="reading-slot">
+        <button id="read-card" class="secondary reading-trigger" type="button" aria-controls="result-reading" hidden>
+          <span class="reading-spark" aria-hidden="true"></span>
+          <span class="reading-trigger-label">解读卡牌</span>
+          <span class="reading-spark reading-spark-right" aria-hidden="true"></span>
+        </button>
+        <section id="result-reading" class="result-reading" aria-label="卡牌解读" tabindex="-1" hidden>
+          <div class="reading-content">
+            <span class="reading-ripple" aria-hidden="true"></span>
+            <h2 class="reading-title"><span id="reading-title-written"></span><span id="reading-title-cursor" class="writing-cursor" aria-hidden="true" hidden><img class="quill-pen" src="./assets/scenes/quill.svg" alt="" width="42" height="56"></span><span id="reading-title-rest" class="reading-rest" aria-hidden="true"></span></h2>
+            <p class="reading-poem"><span id="reading-poem-written"></span><span id="reading-poem-cursor" class="writing-cursor" aria-hidden="true" hidden><img class="quill-pen" src="./assets/scenes/quill.svg" alt="" width="42" height="56"></span><span id="reading-poem-rest" class="reading-rest" aria-hidden="true"></span></p>
+            <p class="reading-text"><span id="reading-text-written"></span><span id="reading-text-cursor" class="writing-cursor" aria-hidden="true" hidden><img class="quill-pen" src="./assets/scenes/quill.svg" alt="" width="42" height="56"></span><span id="reading-text-rest" class="reading-rest" aria-hidden="true"></span></p>
+          </div>
+        </section>
+        <button id="save-card" class="secondary save-card result-action" type="button" hidden>
+          <span class="save-card-icon" aria-hidden="true">↓</span><span>保存卡牌书签</span>
+        </button>
+      </div>
+      <div class="fineprint result-note">艺术意象匹配 · 仅供娱乐</div>
+      <button id="open-gallery" class="secondary gallery-entry result-action" type="button"><span id="gallery-label">查看全部 16 种原像</span><span aria-hidden="true">✧</span></button>
+      <button id="restart" class="secondary restart result-action" type="button"><span>再测一次</span><span class="small-arrow" aria-hidden="true">↻</span></button>
+    </section>
+    <section id="gallery" class="gallery-screen" aria-labelledby="gallery-heading" hidden>
+      <div class="gallery-toolbar"><button id="close-gallery" class="secondary" type="button">← 返回我的结果</button></div>
+      <div class="eyebrow"><span class="rule"></span><span>梦的全貌</span><span class="rule"></span></div>
+      <h2 id="gallery-heading" class="gallery-heading" tabindex="-1">16 种灵魂原像</h2>
+      <p class="gallery-lead">点开任一张牌，查看它的解读。</p>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </section>
+    </main>
+    </div>
+  <div id="bookmark" class="bookmark-overlay" role="dialog" aria-modal="true" aria-label="卡牌书签预览" hidden>
+    <div class="bookmark-panel">
+      <img id="bookmark-image" class="bookmark-image" alt="">
+      <div class="bookmark-toolbar">
+        <button id="bookmark-save" type="button" class="primary bookmark-save" disabled>保存到相册</button>
+        <button id="bookmark-close" type="button" class="secondary bookmark-close">返回卡牌</button>
+      </div>
+      <div id="bookmark-status" class="bookmark-status" role="status"></div>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

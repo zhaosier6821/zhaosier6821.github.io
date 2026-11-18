@@ -1,0 +1,48 @@
+{
+  "product": "灵魂原像",
+  "version": "1.0.1",
+  "release_date": "2026-11-17",
+  "format": "Builder Hub offline HTML mini tool",
+  "status": "用户确认上线成功",
+  "archive": "linghun-yuanxiang-1.0.1.zip",
+  "archive_bytes": 1901352,
+  "archive_sha256": "2b7414a27d0a5eb6be2774881b096e9ea0ca3e9b15e746d2ea2204e655697d7a",
+  "entry_files": [
+    {
+      "path": "app.js",
+      "sha256": "2f3e7a2c852c09eee22a1da468600e3f1c7ab96b96b9cbd2a935eb7e30181188"
+    },
+    {
+      "path": "assets/cards/card_back.jpg",
+      "sha256": "9c99353d37116a9656f780364bf317551c7275606722e769c44dd1de64a301de"
+    },
+    {
+      "path": "assets/fonts/soul-letter.woff2",
+      "sha256": "6997f0c6bd650e70b1a1adcf054f630d681c0b1f6c39a99873edb92bf9905eb0"
+    },
+    {
+      "path": "assets/scenes/forest.webp",
+      "sha256": "fb668e159f37b7e2e1c0c062d54ee751f83ee4ddc17f9689602e4e85908bb6d2"
+    },
+    {
+      "path": "assets/scenes/lake.webp",
+      "sha256": "7abda1cbaf53d3ac905ccd5a3f31d965e9f3c7fc65d158a38a6b1bc4b3ed2981"
+    },
+    {
+      "path": "assets/scenes/quill.svg",
+      "sha256": "dea1479c5d781c1a0a67674f64ebf6c07b10d38bedbe9af6ac65928bbf49c847"
+    },
+    {
+      "path": "index.html",
+      "sha256": "1581b552e6d0ad1a0c142ccea2aab10d9180fe2ac07d92f68746f779f47bb6ad"
+    },
+    {
+      "path": "media.js",
+      "sha256": "cd7aea0fbbde8d439494cb5d0436d6dfb0b1f5b655f69dbf505dc4ae6bf261b6"
+    },
+    {
+      "path": "style.css",
+      "sha256": "d503a8212b633b29357607d7dbca18cef416bce14a71300b2a6850d2a14b1f4a"
+    }
+  ]
+}

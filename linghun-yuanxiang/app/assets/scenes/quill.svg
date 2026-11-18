@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 64" fill="none">
+  <defs>
+    <linearGradient id="feather" x1="42" y1="4" x2="11" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f5f5ff"/>
+      <stop offset=".43" stop-color="#c7d9ff"/>
+      <stop offset=".78" stop-color="#8c99d1"/>
+      <stop offset="1" stop-color="#5f6ea9"/>
+    </linearGradient>
+    <linearGradient id="nib" x1="4" y1="59" x2="12" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a6b7e0"/>
+      <stop offset=".6" stop-color="#f3f7ff"/>
+      <stop offset="1" stop-color="#91a4d5"/>
+    </linearGradient>
+  </defs>
+  <path d="M9 49c.6-5.7 2.3-10.5 5.3-15.3l.8 3 2.4-7.5C24.2 18.7 34.1 10.4 45 3c-.4 5.5-1.7 10.9-4 15.9l-5.4 5.8 3.5-1.5a48 48 0 0 1-6.5 8.7l-6.9 3.7 3.9-.7a39.2 39.2 0 0 1-7.8 6.2l-5.3 1.1 2.7.5c-2.8 2.1-6.1 4.1-10.2 6.3Z" fill="url(#feather)" stroke="#d6e4ff" stroke-width=".55"/>
+  <path d="M8.6 52.7c8.4-15 20.2-30.5 32.5-44.3" stroke="#f1f4ff" stroke-width=".9" stroke-linecap="round"/>
+  <path d="m16.7 40.3 10.5-5m-6.3-.1 10.1-5.4m-5.3-.9 9.7-6.1m-5-1.1 8.9-6.2m-16 12.4 1.4-7m-6.5 13.7 1.5-7.4m10-4.5 2.3-7.8" stroke="#f4f4ff" stroke-opacity=".44" stroke-width=".55" stroke-linecap="round"/>
+  <path d="m8.5 51.3 3.9 2.4-2.4 4.4-7.2 4.4 1.5-8.2 4.2-3Z" fill="url(#nib)" stroke="#e1e9ff" stroke-width=".45"/>
+  <path d="m3 62 3.9-5.9" stroke="#50628f" stroke-width=".65" stroke-linecap="round"/>
+  <circle cx="7.2" cy="55.9" r=".75" fill="#50628f"/>
+</svg>
